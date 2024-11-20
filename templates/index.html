@@ -3,35 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pobierz treść tweeta</title>
+    <title>Fake news detector</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Pobierz treść tweeta</h1>
+        <div class="language-switcher">
+            <a href="{{ url_for('set_language', lang='pl') }}" class="{% if language == 'pl' %}active{% endif %}">Polski</a>
+            <a href="{{ url_for('set_language', lang='en') }}" class="{% if language == 'en' %}active{% endif %}">English</a>
+        </div>
+
+        <h1>Fetch tweet content</h1>
         <form method="post" action="/">
-            <label for="tweet_url">Wklej URL tweeta:</label>
+            <label for="tweet_url">Paste the tweet URL:</label>
             <input type="text" id="tweet_url" name="tweet_url" placeholder="https://twitter.com/user/status/1234567890" required>
-            <button type="submit">Pobierz</button>
+            <button type="submit">Fetch</button>
         </form>
 
-        <!-- Sekcja wyświetlania treści tweeta -->
         {% if tweet_text %}
             <div class="tweet">
-                <h3>Treść tweeta:</h3>
+                <h3>Tweet content:</h3>
                 <p>{{ tweet_text }}</p>
             </div>
         {% endif %}
 
-        <!-- Sekcja wyświetlania odpowiedzi modelu -->
         {% if mistral_response %}
             <div class="mistral-response">
-                <h3>Odpowiedź modelu:</h3>
+                <h3>Model verdict:</h3>
                 <p>{{ mistral_response }}</p>
             </div>
         {% endif %}
 
-        <!-- Sekcja komunikatów flash -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="alert">
