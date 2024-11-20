@@ -21,6 +21,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
+    display: flex;
+    flex-direction: column; /* Wszystkie elementy wewnątrz w pionowej kolejności */
 }
 
 h1 {
@@ -31,11 +33,12 @@ h1 {
 
 form {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Elementy formularza w pionowej kolejności */
+    margin-bottom: 20px;
 }
 
 label {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-weight: bold;
 }
 
@@ -70,7 +73,7 @@ button:hover {
     border-radius: 5px;
 }
 
-.tweet {
+.tweet, .mistral-response {
     margin-top: 20px;
     padding: 15px;
     background: #f9f9f9;
@@ -78,25 +81,12 @@ button:hover {
     border-radius: 5px;
 }
 
-.tweet h3 {
+.tweet h3, .mistral-response h3 {
     color: #555;
     margin-bottom: 10px;
 }
 
 .mistral-response {
-    margin-top: 20px;
-    padding: 15px;
     background: #f1f8ff;
     border: 1px solid #cce5ff;
-    border-radius: 5px;
-}
-
-.mistral-response h3 {
-    color: #004085;
-    margin-bottom: 10px;
-}
-
-.mistral-response p {
-    color: #333;
-    font-style: italic;
 }

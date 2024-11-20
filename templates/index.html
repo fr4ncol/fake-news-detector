@@ -2,34 +2,45 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Analiza Tweeta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pobierz treść tweeta</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Podaj URL do tweeta:</h1>
-    <form method="post">
-        <input type="text" name="tweet_url" placeholder="Wpisz URL tweeta">
-        <button type="submit">Przeanalizuj</button>
-    </form>
+    <div class="container">
+        <h1>Pobierz treść tweeta</h1>
+        <form method="post" action="/">
+            <label for="tweet_url">Wklej URL tweeta:</label>
+            <input type="text" id="tweet_url" name="tweet_url" placeholder="https://twitter.com/user/status/1234567890" required>
+            <button type="submit">Pobierz</button>
+        </form>
 
-    {% if tweet_text %}
-        <h2>Tekst Tweeta:</h2>
-        <p>{{ tweet_text }}</p>
-    {% endif %}
-
-    {% if mistral_response %}
-        <h2>Odpowiedź Modelu:</h2>
-        <p>{{ mistral_response }}</p>
-    {% endif %}
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+        <!-- Sekcja wyświetlania treści tweeta -->
+        {% if tweet_text %}
+            <div class="tweet">
+                <h3>Treść tweeta:</h3>
+                <p>{{ tweet_text }}</p>
+            </div>
         {% endif %}
-    {% endwith %}
+
+        <!-- Sekcja wyświetlania odpowiedzi modelu -->
+        {% if mistral_response %}
+            <div class="mistral-response">
+                <h3>Odpowiedź modelu:</h3>
+                <p>{{ mistral_response }}</p>
+            </div>
+        {% endif %}
+
+        <!-- Sekcja komunikatów flash -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>
