@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Analiza Tweeta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Podaj URL do tweeta:</h1>
+    <form method="post">
+        <input type="text" name="tweet_url" placeholder="Wpisz URL tweeta">
+        <button type="submit">Przeanalizuj</button>
+    </form>
+
+    {% if tweet_text %}
+        <h2>Tekst Tweeta:</h2>
+        <p>{{ tweet_text }}</p>
+    {% endif %}
+
+    {% if mistral_response %}
+        <h2>Odpowiedź Modelu:</h2>
+        <p>{{ mistral_response }}</p>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
