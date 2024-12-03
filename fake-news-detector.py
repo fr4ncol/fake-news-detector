@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import requests
 from mistralai import Mistral
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  
+app.secret_key = os.getenv("FLASK_SECRET_KEY")  
 
 model = "mistral-large-latest"
-client = Mistral(api_key='LLyqibiPrFeMPvNQvdvlwr6lLGgzCrS2')
+client = Mistral(api_key=os.getenv("MISTRAL_API_KEY"))
 
 def get_tweet_text(url):
     try:
@@ -23,14 +27,14 @@ def get_mistral_response(tweet_text, language):
         if language == "en":
             content = """
                       Determine whether the following statement is "True" or "False":
-                      Statement: {statement}
+                      Statement: {tweet_text}
                       Label:
                       """
             content = content.format(tweet_text=tweet_text)
         else:
             content = """
                       Określ, czy poniższe stwierdzenie jest "Prawdziwe" czy "Fałszywe":
-                      Stwierdzenie: {statement}
+                      Stwierdzenie: {tweet_text}
                       Klasyfikacja:  
                       """
             content = content.format(tweet_text=tweet_text)
