@@ -1,3 +1,8 @@
+"""
+Author: Franciszek Plisz
+Copyright (c) 2024. All rights reserved.
+"""
+
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import requests
 from mistralai import Mistral
